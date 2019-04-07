@@ -24,11 +24,13 @@ export default class Login extends Component{
         if ( this.state.phone && this.state.passwd ){
             console.log(this.state)
             get('login', this.state).then( res => {
-                const { data: { code, msg } } = res
+                const { data: { code, msg, data } } = res
+                const newData = { ...data };
                 if ( code !== 200 ) {
                     showToast(msg)
                 } else {
                     showToast('登录成功')
+                    Taro.setStorageSync('person', newData)
                     console.log(res);
                 }
             });           

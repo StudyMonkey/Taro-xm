@@ -14,8 +14,10 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/person/person',
       'pages/regist/regist',
       'pages/login/login',
+      '/pages/search/search',
       'pages/index/index'
     ],
     window: {
@@ -23,16 +25,30 @@ class App extends Component {
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
-    }
+    },
+    tabBar: {
+      list: [{
+        pagePath: "pages/index/index",
+        text: "首页",
+        iconPath: "./images/index.png",
+        selectedIconPath: "./images/index-active.png"
+      }, {
+        pagePath: "pages/person/person",
+        text: "我的",
+        iconPath: "./images/me.png",
+        selectedIconPath: "./images/me-active.png"
+      },{
+        pagePath: "pages/login/login",
+        text: "登录",
+        iconPath: "./images/tool.png",
+        selectedIconPath: "./images/tool-active.png"
+      }],
+      color: '#333',
+      selectedColor: '#333',
+      backgroundColor: '#fff',
+      borderStyle: '#ccc'
+    }  
   }
-
-  componentDidMount () {}
-
-  componentDidShow () {}
-
-  componentDidHide () {}
-
-  componentDidCatchError () {}
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数

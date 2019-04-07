@@ -17,6 +17,14 @@ export function get( uri, data){
     })
 }
 
+export function getStorage(key){
+    let str = Taro.getStorageSync(key);
+    if ( !str ) {
+        return ''
+    }
+    return JSON.stringify(str)
+}
+
 export function showToast(title){
     Taro.showToast({
         title,
