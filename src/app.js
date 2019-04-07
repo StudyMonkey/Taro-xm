@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import Index from './pages/index'
+import 'taro-ui/dist/style/index.scss'
 
 import './app.less'
 
@@ -13,6 +14,8 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/regist/regist',
+      'pages/login/login',
       'pages/index/index'
     ],
     window: {
