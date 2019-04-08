@@ -1,6 +1,6 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { getStorage,get } from '../../utils/utils'
+import { getStorage } from '../../utils/utils'
 import './person.less'
 import { AtButton } from 'taro-ui';
 
@@ -20,9 +20,10 @@ export default class Person extends Component {
         })
     }
 
-    searchWeather = () => {
+    handleGoSearch = (n) => {
+        console.log(n);
         Taro.navigateTo({
-            url: '/pages/search/search'
+            url: '/pages/search/search?type='+ n
         })
     }
 
@@ -35,10 +36,15 @@ export default class Person extends Component {
 
                     </View>
                     <AtButton
-                        onClick={ this.searchWeather }
+                        onClick={ this.handleGoSearch.bind(this, 1) }
                     >
                         查询天气
-                    </AtButton>
+                    </AtButton>  
+                    <AtButton
+                        onClick={ this.handleGoSearch.bind(this, 2) }
+                    >
+                        查询古诗词作者信息
+                    </AtButton>                                       
                     { 
                         this.state.person ?                 
                         <AtButton 

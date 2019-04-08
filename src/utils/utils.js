@@ -1,17 +1,51 @@
 import Taro from '@tarojs/taro'
 
+// 豆瓣api
+const apikey = '0df993c66c0c636e29ecbb5344252a4a'
+
 const url = 'https://www.apiopen.top/';
 
-export function get( uri, data){
+const douUrl = 'https://api.apiopen.top/'
+
+export function get( url, uri, data){
     return new Promise( (resolve, reject) => {
+        Taro.showLoading({
+            title: '加载中...'
+        })
         Taro.request({
             url: url + uri,
+            data,
+            success(res){
+                return resolve(res);
+                
+            },
+            error(err){
+                return reject(err)
+            },
+            complete(){
+                Taro.hideLoading()
+            }
+        })
+        
+    })
+}
+
+export function getApi( uri, data){
+    return new Promise( (resolve, reject) => {
+        Taro.showLoading({
+            title: '加载中...'
+        })        
+        Taro.request({
+            url: douUrl + uri,
             data,
             success(res){
                 return resolve(res)
             },
             error(err){
                 return reject(err)
+            },
+            complete(){
+                Taro.hideLoading()
             }
         })
     })

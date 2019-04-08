@@ -14,11 +14,12 @@ class App extends Component {
 
   config = {
     pages: [
+      'pages/index/index',
       'pages/person/person',
       'pages/regist/regist',
       'pages/login/login',
-      '/pages/search/search',
-      'pages/index/index'
+      'pages/search/search'
+      
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -32,16 +33,16 @@ class App extends Component {
         text: "首页",
         iconPath: "./images/index.png",
         selectedIconPath: "./images/index-active.png"
-      }, {
-        pagePath: "pages/person/person",
-        text: "我的",
-        iconPath: "./images/me.png",
-        selectedIconPath: "./images/me-active.png"
       },{
         pagePath: "pages/login/login",
         text: "登录",
         iconPath: "./images/tool.png",
         selectedIconPath: "./images/tool-active.png"
+      }, {
+        pagePath: "pages/person/person",
+        text: "我的",
+        iconPath: "./images/me.png",
+        selectedIconPath: "./images/me-active.png"
       }],
       color: '#333',
       selectedColor: '#333',
