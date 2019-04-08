@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Video } from '@tarojs/components'
-import { AtButton,AtCard,AtTabs,AtTabsPane  } from 'taro-ui'
+import { AtTabs,AtTabsPane  } from 'taro-ui'
 import { getApi } from '../../utils/utils'
 import IndexList from '../../components/indexList'
 
@@ -40,14 +40,15 @@ export default class Index extends Component {
       current: value
     }, () => {
       console.log(this.state.current);
+      const { current } = this.state
       let id;
-      if ( this.state.current === 0 ) {
+      if ( current === 0 ) {
         id = 28
-      } else if ( this.state.current === 1 ){
+      } else if ( current === 1 ){
         id = 14
-      } else if ( this.state.current === 2 ) {
+      } else if ( current === 2 ) {
         id = 36
-      } else if ( this.state.current === 3 ) {
+      } else if ( current === 3 ) {
         id = 10
       }
       getApi('videoCategoryDetails', { id }).then( res => {
@@ -68,25 +69,45 @@ export default class Index extends Component {
     return (
       <View className='indexWrap'>
         <AtTabs current={ current } tabList={tabList} onClick={ this.handleClick }>
-          {
+          <AtTabsPane 
+            current={ current } 
+            index={ 0 }
+          >
+            <IndexList list={ list } />
+          </AtTabsPane>
+          <AtTabsPane 
+            current={ current } 
+            index={ 1 }
+          >
+            <IndexList list={ list } />
+          </AtTabsPane>
+          <AtTabsPane 
+            current={ current } 
+            index={ 2 }
+          >
+            <IndexList list={ list } />
+          </AtTabsPane>
+          <AtTabsPane 
+            current={ current } 
+            index={ 3 }
+          >
+            <IndexList list={ list } />
+          </AtTabsPane>
+          {/* {
             tabList.map( (item,index) => {
-              let judge;
-              if ( current === index ){
-                judge = true
-              } else {
-                judge = false
-              }
-              console.log(judge)
+              console.log(index)
               return (
-                {
-                  judge ?          
-                  <AtTabsPane current={ current } index={ index }>
+                {       
+                  <AtTabsPane 
+                    current={ current } 
+                    index={ index }
+                  >
                     <IndexList list={ list } />
-                  </AtTabsPane> : null
+                  </AtTabsPane>
                 } 
               )
             })
-          }
+          } */}
 
         </AtTabs>      
         

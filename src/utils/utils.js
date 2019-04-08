@@ -7,7 +7,7 @@ const url = 'https://www.apiopen.top/';
 
 const douUrl = 'https://api.apiopen.top/'
 
-export function get( url, uri, data){
+export function get( uri, data){
     return new Promise( (resolve, reject) => {
         Taro.showLoading({
             title: '加载中...'

@@ -1,9 +1,8 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View,Text } from '@tarojs/components'
-import { AtSearchBar,AtNavBar } from 'taro-ui'
-import { get, getApi } from '../../utils/utils'
-import Poetry from '../../components/poetry'
-import Weather from '../../components/weather'
+import { AtSearchBar,AtList,AtListItem,AtIcon } from 'taro-ui'
+import { get, getApi, showToast } from '../../utils/utils'
+import './search.less'
 
 export default class Search extends Component{
 
@@ -41,9 +40,13 @@ export default class Search extends Component{
             this.setState({
                 location: this.state.value
             })
-            if ( this.state.type === 1 ) {
-                get('weatherApi', { city: this.state.value }).then( res => {
-                    console.log(res.data.data.forecast);
+            if ( this.state.type === '1' ) {
+                get('weatherApi', { city: this.state.value }).then( res => {                  
+                    console.log(res);
+                    const { data: { code,msg } } = res
+                    if ( code !== 200 ) {
+                        showToast(msg);
+                    }
                     this.setState({
                         list: res.data.data.forecast
                     })
@@ -61,26 +64,26 @@ export default class Search extends Component{
         }
     }
 
-    handleClick = () => {
+    handleBackClick = () => {
         console.log('返回')
         Taro.navigateBack(-1);
     }
 
     render(){
         const { value, list, location, type } = this.state
-        console.log(typeof type, type);
-        const content = (
-            <AtSearchBar value={ value } onChange={ this.handleChange } onActionClick={this.onActionClick} />
-        )
+        const judge = type === '1'
         return(
             <View>
-                <AtNavBar
-                    onClickLeftIcon={this.handleClick}
-                    color='#000'
-                    title='NavBar导航栏'
-                    leftIconType='chevron-left'
-                />             
-                { type === '1' ?                 
+                <View className='searchWrap'>
+                    <AtIcon onClick={ this.handleBackClick } className='searchBack' value='chevron-left' size='30'></AtIcon>
+                    <AtSearchBar 
+                        className='searchInput'
+                        value={ value } 
+                        onChange={ this.handleChange } 
+                        onActionClick={this.onActionClick} 
+                    /> 
+                </View>           
+                {  judge ?                 
                     <View>
                         <AtList>
                             <Text>{ location }未来5天天气情况如下：</Text> 
@@ -113,7 +116,7 @@ export default class Search extends Component{
                                         </View>
                                     </View>
                                 )
-                            }) : <View> 暂无此人相关内容 </View>
+                            }) : null
                         }
                     </View> 
                 }
