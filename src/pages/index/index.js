@@ -3,6 +3,7 @@ import { View, Text, Video } from '@tarojs/components'
 import { AtTabs,AtTabsPane  } from 'taro-ui'
 import { getApi } from '../../utils/utils'
 import IndexList from '../../components/indexList'
+import Tabs from '../../components/tabs'
 
 import './index.less'
 
@@ -22,7 +23,6 @@ export default class Index extends Component {
   }
 
   showList = res => {
-    console.log(res);
     const { data: { code, result } } = res;
     let newArr = result.filter( (v) => {
       return v.type === "followCard"
@@ -68,49 +68,8 @@ export default class Index extends Component {
     const tabList = [{ title: '热门推荐' }, { title: '广告' }, { title: '生活' }, { title: '动画' }]
     return (
       <View className='indexWrap'>
-        <AtTabs current={ current } tabList={tabList} onClick={ this.handleClick }>
-          <AtTabsPane 
-            current={ current } 
-            index={ 0 }
-          >
-            <IndexList list={ list } />
-          </AtTabsPane>
-          <AtTabsPane 
-            current={ current } 
-            index={ 1 }
-          >
-            <IndexList list={ list } />
-          </AtTabsPane>
-          <AtTabsPane 
-            current={ current } 
-            index={ 2 }
-          >
-            <IndexList list={ list } />
-          </AtTabsPane>
-          <AtTabsPane 
-            current={ current } 
-            index={ 3 }
-          >
-            <IndexList list={ list } />
-          </AtTabsPane>
-          {/* {
-            tabList.map( (item,index) => {
-              console.log(index)
-              return (
-                {       
-                  <AtTabsPane 
-                    current={ current } 
-                    index={ index }
-                  >
-                    <IndexList list={ list } />
-                  </AtTabsPane>
-                } 
-              )
-            })
-          } */}
-
-        </AtTabs>      
-        
+        <Tabs tabList={ tabList } ontabsClick={ this.handleClick } />
+        <IndexList list={ list } />             
       </View>
     )
   }

@@ -7,6 +7,8 @@ const url = 'https://www.apiopen.top/';
 
 const douUrl = 'https://api.apiopen.top/'
 
+const cnodeApi = 'https://cnodejs.org/api/v1/'
+
 export function get( uri, data){
     return new Promise( (resolve, reject) => {
         Taro.showLoading({
@@ -48,6 +50,29 @@ export function getApi( uri, data){
                 Taro.hideLoading()
             }
         })
+    })
+}
+
+export function getNode( uri, data){
+    return new Promise( (resolve, reject) => {
+        Taro.showLoading({
+            title: '加载中...'
+        })
+        Taro.request({
+            url: cnodeApi + uri,
+            data,
+            success(res){
+                return resolve(res);
+                
+            },
+            error(err){
+                return reject(err)
+            },
+            complete(){
+                Taro.hideLoading()
+            }
+        })
+        
     })
 }
 

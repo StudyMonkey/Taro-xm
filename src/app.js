@@ -15,10 +15,12 @@ class App extends Component {
   config = {
     pages: [
       'pages/index/index',
+      'pages/study/study',
       'pages/person/person',
       'pages/regist/regist',
       'pages/login/login',
-      'pages/search/search'
+      'pages/search/search',
+      'pages/detail/detail'
       
     ],
     window: {
@@ -34,10 +36,10 @@ class App extends Component {
         iconPath: "./images/index.png",
         selectedIconPath: "./images/index-active.png"
       },{
-        pagePath: "pages/login/login",
-        text: "登录",
-        iconPath: "./images/tool.png",
-        selectedIconPath: "./images/tool-active.png"
+        pagePath: "pages/study/study",
+        text: "学习",
+        iconPath: "./images/study.png",
+        selectedIconPath: "./images/study-active.png"
       }, {
         pagePath: "pages/person/person",
         text: "我的",
