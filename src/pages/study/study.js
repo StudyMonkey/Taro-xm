@@ -37,21 +37,20 @@ export default class Study extends Component{
                 tab = 'job';
                 break;
         }
-        getNode('topics', { page: 1, tab }).then( res => {
-            const { data: { data } } = res
-            this.setState({
-                nodeList: data
-            })
-        })        
+        this.getData('topics', { page: 1, tab });        
     }
 
-    componentDidMount(){
-        getNode('topics', { page: 1 }).then( res => {
+    getData = (url, obj) => {
+        getNode(url, obj).then( res => {
             const { data: { data } } = res
             this.setState({
                 nodeList: data
             })
         })
+    }
+
+    componentDidMount(){
+        this.getData('topics', { page: 1 });
     }
 
     render(){

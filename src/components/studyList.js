@@ -1,13 +1,9 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtList,AtListItem } from 'taro-ui'
-import { getNode } from '../utils/utils'
+import { computedTime } from '../utils/utils'
 
 export default class StudyList extends Component{
-
-    state = {
-        nowTime: new Date()
-    }
 
     handleItemClick = (id) => {
         Taro.navigateTo({
@@ -27,7 +23,7 @@ export default class StudyList extends Component{
                                     onClick={ () => this.handleItemClick(item.id) }
                                     key={ item.id }
                                     title={ item.title }
-                                    extraText='10分钟前'
+                                    extraText={ computedTime(item.create_at) }
                                     thumb={ item.author.avatar_url }
                                 />
                             )

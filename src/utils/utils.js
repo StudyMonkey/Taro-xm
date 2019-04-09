@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro'
+import { func } from 'prop-types';
 
 // 豆瓣api
 const apikey = '0df993c66c0c636e29ecbb5344252a4a'
@@ -89,6 +90,45 @@ export function showToast(title){
         title,
         icon: 'none'
     })
+}
+
+export function computedTime(time){
+    const nowTime = new Date().getTime();
+    const oldTime = new Date(time);
+    const newDate = nowTime - oldTime;
+    //计算出相差天数
+    var year = Math.floor(newDate/(24*3600*1000*30*12))
+    if( year > 0.5 ) {
+        return year + '年前'
+    } else {
+        var month = Math.floor(newDate/(24*3600*1000*30))
+        if ( month > 0.5 ) {
+            return month + '个月前'
+        } else {
+            var day = Math.floor(newDate/(24*3600*1000));
+            if ( day > 0.5 ) {
+                return day + '天前'
+            } else {
+                var hours = Math.floor(newDate/(3600*1000));
+                if ( hours > 0.5 ) {
+                    return hours + '小时前'
+                } else {
+                    var minutes = Math.floor(newDate/(60*1000));
+                    if ( minutes > 0.5 ) {
+                        return minutes + '分钟前'
+                    } else {
+                        var seconds = Math.floor(newDate/(60*1000));
+                        if ( seconds > 0.5 ) {
+                            return seconds + '秒前'
+                        }
+                    }
+                }
+            }
+        }
+    }   
+    
+
+
 }
 
 // https://www.apiopen.top/createUser?key=00d91e8e0cca2b76f515926a36db68f5&phone=13307496550&passwd=123654
