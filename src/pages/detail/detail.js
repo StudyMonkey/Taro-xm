@@ -1,12 +1,13 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View,Text } from '@tarojs/components'
 import { getNode,computedTime } from '../../utils/utils'
-import { AtList, AtListItem } from 'taro-ui'
+import { AtList, AtListItem,AtNavBar } from 'taro-ui'
 import './detail.less'
 
 export default class Detail extends Component{
 
     state = {
+        collect: false,
         detail: ''
     }
 
@@ -21,7 +22,17 @@ export default class Detail extends Component{
         })
     }
 
-    // 根据tab字段，变成汉子
+    handleBackClick = () => {
+        Taro.navigateBack(-1);
+    }
+
+    handleCollectClick = () => {
+        this.setState({ 
+            collect: !this.state.collect
+        })
+    }
+
+    // 根据tab字段，变成汉字
     changeType = (type) => {
         switch(type){
             case 'good':
@@ -40,11 +51,19 @@ export default class Detail extends Component{
     }
 
     render(){
-        const { detail } = this.state; 
+        const { detail,collect } = this.state; 
         // const len = detail.replies.length
         // console.log(len);
         return(
             <View>
+                <AtNavBar
+                    onClickRgIconSt={ this.handleCollectClick }
+                    onClickLeftIcon={ this.handleBackClick }
+                    color='#000'
+                    title={ detail.title }
+                    leftIconType='chevron-left'
+                    rightFirstIconType={ collect ? 'heart-2' : 'heart' }
+                />
                 <View className='acticle_h3'>{ detail.title }</View>
                 <View className='basicInfoWrap'>
                     <View className='at-article__info'>发布于{ computedTime(detail.create_at) }</View>
