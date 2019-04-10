@@ -1,15 +1,13 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { getNode } from '../../utils/utils'
-import { AtList,AtListItem,AtTabs,AtTabsPane } from 'taro-ui'
 import Tabs from '../../components/tabs'
 import StudyList from '../../components/studyList'
 
 export default class Study extends Component{
 
     state = {
-        nodeList: [],
-        current: 0
+        nodeList: []
     }
 
     handleClick = (value) => {
@@ -54,7 +52,7 @@ export default class Study extends Component{
     }
 
     render(){
-        const { nodeList, nowTime } = this.state
+        const { nodeList } = this.state
         const tabList = [{ title: '全部' }, { title: '精华' }, { title: '分享' }, { title: '问答' }, { title: '招聘' }]
         return(
             <View>

@@ -1,19 +1,20 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Video } from '@tarojs/components'
+import { View, Text, Video,Button } from '@tarojs/components'
 import { AtTabs,AtTabsPane  } from 'taro-ui'
 import { getApi } from '../../utils/utils'
+import { observer,inject } from '@tarojs/mobx'
 import IndexList from '../../components/indexList'
 import Tabs from '../../components/tabs'
 
 import './index.less'
 
 
-
+@inject('counterStore')
+@observer
 export default class Index extends Component {
 
   state = {
-    list: [],
-    current: 0
+    list: []
   }
 
   componentDidMount(){
@@ -61,14 +62,20 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   }
 
-  render () {
+  increment = () => {
+    const { counterStore } = this.props;
+    counterStore.increment();
+  }
 
-    const { list, current } = this.state
+  render () {
+    const { counterStore: { counter } } = this.props;
+    const { list } = this.state
     // 28搞笑 14 广告  36生活  10 动画
     const tabList = [{ title: '热门推荐' }, { title: '广告' }, { title: '生活' }, { title: '动画' }]
     return (
       <View className='indexWrap'>
         <Tabs tabList={ tabList } ontabsClick={ this.handleClick } />
+        <Button onClick={ this.increment }>+</Button><Text>{ counter }</Text>
         <IndexList list={ list } />             
       </View>
     )

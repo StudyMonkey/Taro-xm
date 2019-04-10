@@ -1,10 +1,13 @@
 import Taro, {Component} from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Button, Text } from '@tarojs/components'
 import { AtForm, AtInput, AtButton } from 'taro-ui'
+import { observer, inject } from '@tarojs/mobx'
 import { get, showToast } from '../../utils/utils'
 import './login.less'
 
-export default class Login extends Component{
+@inject('counterStore')
+@observer
+class Login extends Component{
 
     config = {
         navigationBarTitleText: '登录'
@@ -30,7 +33,10 @@ export default class Login extends Component{
                     showToast(msg)
                 } else {
                     showToast('登录成功')
-                    Taro.setStorageSync('person', newData)
+                    Taro.setStorageSync('person', newData);
+                    Taro.redirectTo({
+                        url: '/pages/person/person'
+                    })
                     console.log(res);
                 }
             });           
@@ -58,7 +64,19 @@ export default class Login extends Component{
         })
     }
 
+    increment = () => {
+        const { counterStore } = this.props;
+        counterStore.increment()
+    }
+
+    decrement = () => {
+        const { counterStore } = this.props;
+        counterStore.decrement()
+    }
+
     render(){
+        const { counterStore: { counter } } = this.props;
+        console.log( 'props', this.props );
         return(
             <View>
                 <AtForm>
@@ -88,7 +106,13 @@ export default class Login extends Component{
                         onClick={ this.handleGoRegist } 
                     >注册</AtButton>                    
                 </AtForm>
+                <Button onClick={ this.increment }>+</Button>
+                <Button onClick={ this.decrement }>-</Button>
+                <Text>{ counter }</Text>
+
             </View>
         )
     }
 }
+
+export default Login;

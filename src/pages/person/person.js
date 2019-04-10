@@ -20,11 +20,32 @@ export default class Person extends Component {
         })
     }
 
+    handleLogin = () => {
+        Taro.navigateTo({
+            url: '/pages/login/login'
+        })
+    }
+
+    // 跳转search页面的处理
     handleGoSearch = (n) => {
         console.log(n);
         Taro.navigateTo({
             url: '/pages/search/search?type='+ n
         })
+    }
+
+    // 跳转收藏页面的处理
+    handleGoCollect = () => {
+        Taro.navigateTo({
+            url: '/pages/collect/collect'
+        })
+    }
+
+    // 
+    handleGoView = () => {
+        Taro.navigateTo({
+            url: '/pages/view/view'
+        })        
     }
 
     render(){
@@ -44,6 +65,16 @@ export default class Person extends Component {
                         onClick={ this.handleGoSearch.bind(this, 2) }
                     >
                         查询古诗词作者信息
+                    </AtButton>
+                    <AtButton
+                        onClick={ this.handleGoView }
+                    >
+                        最近浏览
+                    </AtButton>                    
+                    <AtButton
+                        onClick={ this.handleGoCollect }
+                    >
+                        我的收藏
                     </AtButton>                                       
                     { 
                         this.state.person ?                 
