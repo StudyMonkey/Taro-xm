@@ -1,10 +1,13 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtDivider, AtButton } from 'taro-ui'
-import { getNode,showToast } from '../../utils/utils'
+import { getNode } from '../../utils/utils'
+import { inject,observer } from '@tarojs/mobx'
 import Tabs from '../../components/tabs'
 import StudyList from '../../components/studyList'
 
+@inject('counterViewList')
+@observer
 export default class Study extends Component{
 
     state = {
@@ -14,6 +17,21 @@ export default class Study extends Component{
         more: false,
         nodeList: []
     }
+
+    constructor(props){
+        super(props);
+    }
+
+    handlePushViewList = (id) => {
+        console.log('id', id);
+        const { nodeList } = this.state;
+        const { counterViewList } = this.props;
+        const list = nodeList.filter( v => v.id === id );
+        const obj = {...list[0]}
+        counterViewList.addViewList(obj);
+    }
+
+
 
     handleClick = (value) => {
         this.setState({
@@ -103,7 +121,7 @@ export default class Study extends Component{
         return(
             <View>
                 <Tabs tabList={ tabList } ontabsClick={ this.handleTabsClick } />
-                <StudyList list={ nodeList } />
+                <StudyList onhandlePushView={ this.handlePushViewList } list={ nodeList } />
                 {
                     more ?  <AtDivider content='没有更多了' fontColor='#2d8cf0' lineColor='#2d8cf0'/> : 
                     <View>

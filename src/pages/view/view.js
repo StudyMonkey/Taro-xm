@@ -1,13 +1,27 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View,Text } from '@tarojs/components'
-import { AtNavBar } from 'taro-ui';
-import StudyList from '../../components/studyList'
+import { AtNavBar,AtList,AtListItem } from 'taro-ui';
+import { inject, observer } from '@tarojs/mobx'
+import { computedTime } from '../../utils/utils'
+import StudyList from '../../components/studyList';
 
+@inject('counterViewList')
+@observer
 export default class Collect extends Component{
 
     state = {
         list: []
     }
+
+    constructor(props){
+        super(props);
+        const { counterViewList: { viewList } } = this.props;
+        this.setState({
+            list: viewList.slice(0)
+        })
+    }
+
+
 
     handleBackClick = () => {
         Taro.navigateBack(-1);
@@ -15,6 +29,7 @@ export default class Collect extends Component{
 
     render(){
         const { list } = this.state
+        console.log(list);
         return(
             <View>
                 <AtNavBar

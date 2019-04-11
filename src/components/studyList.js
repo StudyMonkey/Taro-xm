@@ -5,7 +5,15 @@ import { computedTime } from '../utils/utils'
 
 export default class StudyList extends Component{
 
+    constructor(props){
+        super(props);
+    }
+
     handleItemClick = (id) => {
+        if ( this.props.onhandlePushView ) {
+            const { onhandlePushView } = this.props;
+            onhandlePushView(id);
+        }
         Taro.navigateTo({
             url: '/pages/detail/detail?id='+id
         })

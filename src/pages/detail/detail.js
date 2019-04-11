@@ -52,7 +52,7 @@ export default class Detail extends Component{
     }
 
     render(){
-        const { detail,collect } = this.state; 
+        const { detail,collect,isH5 } = this.state; 
         // const len = detail.replies.length
         // console.log(len);
         return(
