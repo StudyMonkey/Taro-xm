@@ -5,6 +5,11 @@ import { get, showToast } from '../../utils/utils'
 import './regist.less'
 
 export default class Regist extends Component{
+
+    config = {
+        navigationBarTitleText: '注册'
+    }
+
     constructor(){
         super();
         this.state = {

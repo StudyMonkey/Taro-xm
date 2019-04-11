@@ -7,6 +7,7 @@ import './detail.less'
 export default class Detail extends Component{
 
     state = {
+        isH5: process.env.TARO_ENV === 'h5',
         collect: false,
         detail: ''
     }
@@ -56,14 +57,18 @@ export default class Detail extends Component{
         // console.log(len);
         return(
             <View>
-                <AtNavBar
-                    onClickRgIconSt={ this.handleCollectClick }
-                    onClickLeftIcon={ this.handleBackClick }
-                    color='#000'
-                    title={ detail.title }
-                    leftIconType='chevron-left'
-                    rightFirstIconType={ collect ? 'heart-2' : 'heart' }
-                />
+                {
+                    isH5 ?                 
+                    <AtNavBar
+                        onClickRgIconSt={ this.handleCollectClick }
+                        onClickLeftIcon={ this.handleBackClick }
+                        color='#000'
+                        title={ detail.title }
+                        leftIconType='chevron-left'
+                        rightFirstIconType={ collect ? 'heart-2' : 'heart' }
+                    /> : null
+                }
+
                 <View className='acticle_h3'>{ detail.title }</View>
                 <View className='basicInfoWrap'>
                     <View className='at-article__info'>发布于{ computedTime(detail.create_at) }</View>

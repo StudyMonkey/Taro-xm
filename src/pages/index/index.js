@@ -1,16 +1,12 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Video,Button } from '@tarojs/components'
-import { AtTabs,AtTabsPane  } from 'taro-ui'
+import { View } from '@tarojs/components'
+import { AtDivider } from 'taro-ui'
 import { getApi } from '../../utils/utils'
-import { observer,inject } from '@tarojs/mobx'
 import IndexList from '../../components/indexList'
 import Tabs from '../../components/tabs'
 
 import './index.less'
 
-
-@inject('counterStore')
-@observer
 export default class Index extends Component {
 
   state = {
@@ -40,7 +36,6 @@ export default class Index extends Component {
     this.setState({
       current: value
     }, () => {
-      console.log(this.state.current);
       const { current } = this.state
       let id;
       if ( current === 0 ) {
@@ -68,15 +63,14 @@ export default class Index extends Component {
   }
 
   render () {
-    const { counterStore: { counter } } = this.props;
     const { list } = this.state
     // 28搞笑 14 广告  36生活  10 动画
     const tabList = [{ title: '热门推荐' }, { title: '广告' }, { title: '生活' }, { title: '动画' }]
     return (
       <View className='indexWrap'>
         <Tabs tabList={ tabList } ontabsClick={ this.handleClick } />
-        <Button onClick={ this.increment }>+</Button><Text>{ counter }</Text>
-        <IndexList list={ list } />             
+        <IndexList list={ list } />   
+        <AtDivider content='没有更多了' fontColor='#2d8cf0' lineColor='#2d8cf0'/>        
       </View>
     )
   }

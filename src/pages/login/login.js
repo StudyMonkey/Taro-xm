@@ -13,8 +13,8 @@ class Login extends Component{
         navigationBarTitleText: '登录'
     }
     
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             key: '00d91e8e0cca2b76f515926a36db68f5',
             phone: '',
