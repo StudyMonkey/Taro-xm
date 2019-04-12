@@ -81,7 +81,7 @@ export default class Detail extends Component{
     render(){
         const { detail,collect,isH5 } = this.state; 
         return(
-            <View>
+            <View className='detailTopWrap'>
                 {
                     isH5 ?                 
                     <AtNavBar
