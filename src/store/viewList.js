@@ -1,16 +1,19 @@
+import Taro from '@tarojs/taro'
 import { observable } from 'mobx'
 
 const counterViewList = observable({
-    viewList: [] || localStorage.getItem('viewList'),
+    viewList: Taro.getStorageSync('viewList') || [],
     addViewList(list) {
+        console.log(this.viewList);
         const listIndex = this.viewList.findIndex( v => v.id === list.id);
         if ( listIndex <= -1 ) {
             this.viewList.push(list);
             console.log(this.viewList);
-            localStorage.setItem('viewList', this.viewList);
+            Taro.setStorageSync('viewList', this.viewList.toJS());
         }
     },
     clearViewList(){
+        Taro.removeStorageSync('viewList');
         this.viewList = []
     }
 })

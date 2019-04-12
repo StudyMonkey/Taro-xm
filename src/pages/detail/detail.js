@@ -53,8 +53,7 @@ export default class Detail extends Component{
 
     render(){
         const { detail,collect,isH5 } = this.state; 
-        // const len = detail.replies.length
-        // console.log(len);
+        console.log(detail.replies);
         return(
             <View>
                 {
@@ -73,24 +72,35 @@ export default class Detail extends Component{
                 <View className='basicInfoWrap'>
                     <View className='at-article__info'>发布于{ computedTime(detail.create_at) }</View>
                     <View className='at-article__info'>{ detail.visit_count }次浏览 </View>
+                    
+                    {
+                        detail.author ? <View className='at-article__info'>发布人{ detail.author.loginname } </View> : null
+                    }
                     <View className='at-article__info'>来自 { this.changeType(detail.tab) }</View>
                 </View>
                 <View className='divideLine'></View>
                 <View className='detailHtmlWrap' dangerouslySetInnerHTML={{ __html: detail.content}}></View>
-                <Text>{ 0 }条回复</Text>
-                {/* <AtList>
-                    {
+                {
+                    detail.replies ? <Text>{ detail.replies.length }条回复</Text> : null
+                }
+                
+                <AtList>
+                    { 
+                        detail.replies ?                   
                         detail.replies.map( (v,ind) => {
                             return (
                                 <AtListItem
+                                    className='commentWrap'
                                     thumb={ v.author.avatar_url }
                                     title={ v.author.loginname + ind+1 }
-                                    note={ v.content }
-                                />
+                                    note={ <View className='commentDetailWrap' dangerouslySetInnerHTML={{__html: v.content}}></View> }
+                                >
+                                    
+                                </AtListItem>
                             )
-                        })
+                        }) : null
                     }
-                </AtList> */}
+                </AtList>
 
             </View>
         )
