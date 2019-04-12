@@ -1,8 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
 import Index from './pages/index'
-import 'taro-ui/dist/style/index.scss'
 import counterViewList from './store/viewList'
+import counterCollect from './store/collect'
+import 'taro-ui/dist/style/index.scss'
+
+
 
 import './app.less'
 
@@ -12,7 +15,8 @@ import './app.less'
 //   require('nerv-devtools')
 // }
 const store = {
-  counterViewList
+  counterViewList,
+  counterCollect
 }
 
 class App extends Component {

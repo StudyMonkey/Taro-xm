@@ -77,6 +77,7 @@ export default class Search extends Component{
                 <View className='searchWrap'>
                     <AtIcon onClick={ this.handleBackClick } className='searchBack' value='chevron-left' size='30'></AtIcon>
                     <AtSearchBar 
+                        placeholder='搜索诗人名字，例如:李白'
                         className='searchInput'
                         value={ value } 
                         onChange={ this.handleChange } 

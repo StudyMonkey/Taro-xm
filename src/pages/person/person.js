@@ -1,8 +1,9 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
-import { getStorage } from '../../utils/utils'
+import { getStorage,showToast } from '../../utils/utils'
 import './person.less'
 import { AtButton } from 'taro-ui';
+import personBg from '../../images/person_bg.jpg'
 
 export default class Person extends Component {
 
@@ -41,26 +42,30 @@ export default class Person extends Component {
         })
     }
 
-    // 
+    // 跳转浏览页面的处理
     handleGoView = () => {
         Taro.navigateTo({
             url: '/pages/view/view'
         })        
     }
 
+    handleClickAbout = () => {
+        showToast('努力思考中...')
+    }
+
     render(){
         return(
             <View>
                 <View className='imagePersonWrap'>
-                    <Image className='bgImage' src='' alt='底部图片' />
+                    <Image className='bgImage' src={ personBg } alt='底部图片' />
                     <View className='personCon'>
 
                     </View>
-                    <AtButton
+                    {/* <AtButton
                         onClick={ this.handleGoSearch.bind(this, 1) }
                     >
                         查询天气
-                    </AtButton>  
+                    </AtButton>   */}
                     <AtButton
                         onClick={ this.handleGoSearch.bind(this, 2) }
                     >
@@ -89,6 +94,7 @@ export default class Person extends Component {
                             className='logoutBtn'
                         >登录</AtButton>                        
                      }
+                     <AtButton onClick={ this.handleClickAbout }>关于</AtButton>
 
                 </View>
             </View>

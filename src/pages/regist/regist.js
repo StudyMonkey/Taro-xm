@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import { AtForm,AtInput,AtButton } from 'taro-ui'
 import { get, showToast } from '../../utils/utils'
+import NavBar from '../../components/navBar'
 import './regist.less'
 
 export default class Regist extends Component{
@@ -70,6 +71,7 @@ export default class Regist extends Component{
     render(){
         return(
             <View>
+                <NavBar navTitle='注册' />
                 <AtForm>
                     <AtInput
                         placeholder='请输入手机号码'

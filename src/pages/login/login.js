@@ -1,12 +1,10 @@
 import Taro, {Component} from '@tarojs/taro'
-import { View, Button, Text } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtForm, AtInput, AtButton } from 'taro-ui'
-import { observer, inject } from '@tarojs/mobx'
 import { get, showToast } from '../../utils/utils'
+import NavBar from '../../components/navBar'
 import './login.less'
 
-@inject('counterStore')
-@observer
 class Login extends Component{
 
     config = {
@@ -58,27 +56,20 @@ class Login extends Component{
         })       
     }
 
+    handleBackClick = () => {
+        Taro.navigateBack(-1);
+    }
+
     handleGoRegist = () => {
         Taro.navigateTo({
             url: '/pages/regist/regist'
         })
     }
 
-    increment = () => {
-        const { counterStore } = this.props;
-        counterStore.increment()
-    }
-
-    decrement = () => {
-        const { counterStore } = this.props;
-        counterStore.decrement()
-    }
-
     render(){
-        const { counterStore: { counter } } = this.props;
-        console.log( 'props', this.props );
         return(
             <View>
+                <NavBar navTitle='登陆' />
                 <AtForm>
                     <AtInput                       
                         placeholder='请输入用户名'
@@ -106,9 +97,6 @@ class Login extends Component{
                         onClick={ this.handleGoRegist } 
                     >注册</AtButton>                    
                 </AtForm>
-                <Button onClick={ this.increment }>+</Button>
-                <Button onClick={ this.decrement }>-</Button>
-                <Text>{ counter }</Text>
 
             </View>
         )

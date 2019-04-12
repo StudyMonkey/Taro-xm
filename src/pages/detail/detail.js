@@ -1,15 +1,32 @@
 import Taro,{ Component } from '@tarojs/taro'
 import { View,Text } from '@tarojs/components'
 import { getNode,computedTime } from '../../utils/utils'
-import { AtList, AtListItem,AtNavBar } from 'taro-ui'
+import { AtList, AtListItem,AtNavBar  } from 'taro-ui'
+import { observer, inject } from '@tarojs/mobx'
 import './detail.less'
 
+@inject('counterCollect')
+@inject('counterViewList')
+@observer
 export default class Detail extends Component{
 
     state = {
         isH5: process.env.TARO_ENV === 'h5',
         collect: false,
         detail: ''
+    }
+
+    constructor(props){
+        super(props);
+        const { counterCollect: { collectList } } = this.props;
+        const { id } = this.$router.params
+        const newArr = collectList.slice(0).filter( v => v.id === id );
+        if ( newArr.length > 0 ) {
+            this.setState({
+                collect: true
+            })
+        }
+
     }
 
     componentDidMount(){
@@ -28,9 +45,19 @@ export default class Detail extends Component{
     }
 
     handleCollectClick = () => {
+        const { collect } = this.state;
+        const { counterCollect } = this.props;
+        const { counterViewList: { viewList } } = this.props;
+        const id = this.$router.params.id;
+        const list = viewList.filter( v => v.id === id )[0];
+        if ( collect ) {
+            counterCollect.deleteCollect(list);
+        } else {
+            counterCollect.addCollect(list); 
+        }
         this.setState({ 
             collect: !this.state.collect
-        })
+        })     
     }
 
     // 根据tab字段，变成汉字
@@ -53,7 +80,6 @@ export default class Detail extends Component{
 
     render(){
         const { detail,collect,isH5 } = this.state; 
-        console.log(detail.replies);
         return(
             <View>
                 {
